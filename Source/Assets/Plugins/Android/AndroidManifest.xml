@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Pico launcher visibility + GameActivity launcher entry.
+
+  Facts that drive this file (verified against the working reference Pico VR
+  project vr_player_unity6_double, plus the PICO OpenXR package sources):
+
+  1) Player Settings > Application Entry Point must be "Game Activity"
+     (ProjectSettings androidApplicationEntry = 2). Pico's OpenXR integration on
+     Unity 6 targets com.unity3d.player.UnityPlayerGameActivity.
+
+  2) XR Management generates unityLibrary/xrmanifest.androidlib which declares
+     the player activity WITHOUT an intent-filter. So the launcher filter has to
+     be re-declared here, together with the GameActivity theme (otherwise AAPT
+     fails with "BaseUnityGameActivityTheme not found" or the launcher entry is
+     missing and the app never starts).
+
+  3) Pico classifies a package as a VR app through meta-data pvr.app.type=vr
+     (also injected by the PICO OpenXR package) plus the hand-tracking markers,
+     which additionally bypass the system HandDialogActivity launch gate.
+
+  Tools namespace is needed for tools:replace on the activity theme.
+-->
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <!-- Pico: declare hand-tracking support so the system skips the HandDialog launch gate -->
+    <uses-permission android:name="com.picovr.permission.HAND_TRACKING" />
+    <!-- Read the public Downloads folder. This headset runs Android 10, where
+         requestLegacyExternalStorage keeps plain File IO working for /sdcard. -->
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+                     android:maxSdkVersion="29" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+
+    <application android:requestLegacyExternalStorage="true">
+        <!-- Pico OS: classify this package as a VR application. -->
+        <meta-data android:name="pvr.app.type" android:value="vr" />
+        <!-- Pico: declare hand-tracking so the system does not intercept launch. -->
+        <meta-data android:name="handtracking" android:value="1" />
+
+        <activity android:name="com.unity3d.player.UnityPlayerGameActivity"
+                  android:enabled="true"
+                  android:exported="true"
+                  android:theme="@style/BaseUnityGameActivityTheme"
+                  tools:replace="android:theme">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="com.picovr.intent.category.VR" />
+                <category android:name="org.khronos.openxr.intent.category.IMMERSIVE_HMD" />
+            </intent-filter>
+        </activity>
+    </application>
+</manifest>

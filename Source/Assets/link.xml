@@ -1,0 +1,5 @@
+<linker>
+  <!-- SMBLibrary uses reflection-heavy message parsing; IL2CPP must keep it intact. -->
+  <assembly fullname="SMBLibrary" preserve="all" />
+  <assembly fullname="System.Buffers" preserve="all" />
+</linker>

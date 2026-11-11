@@ -1,0 +1,26 @@
+{
+    "name": "Unity.XR.OpenXR.Features.PICOSupport",
+    "rootNamespace": "",
+    "references": [
+        "Unity.XR.OpenXR",
+        "Unity.XR.OpenXR.Editor",
+        "Unity.XR.CoreUtils",
+        "Unity.XR.Management",
+        "Unity.InputSystem"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": true,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [
+        {
+            "name": "com.unity.xr.arfoundation",
+            "expression": "5.1.2",
+            "define": "AR_FOUNDATION"
+        }
+    ],
+    "noEngineReferences": false
+}
