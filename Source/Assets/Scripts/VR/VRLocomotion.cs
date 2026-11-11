@@ -19,7 +19,7 @@ using UnityEngine.XR;
 ///   Stick Y                      → zoom: the splat slides towards / away from you
 ///   Stick X                      → previous / next splat file in the folder
 ///   Trigger (hold) + Stick       → move the splat: stick X slides it sideways,
-///                                  stick Y lifts it up / lowers it down
+///                                  stick Y moves it down / up
 ///   Grip (hold) + swing the hand → orbit the splat around the camera (1:1 with
 ///                                  the controller rotation, like grabbing the
 ///                                  world and turning it)
@@ -367,10 +367,10 @@ public class VRLocomotion : MonoBehaviour
     }
 
     /// <summary>
-    /// Trigger + stick moves the splat. Stick Y lifts it straight up / down;
-    /// stick X slides it sideways on the camera's horizontal axis. The sideways
-    /// sign is inverted on purpose (pushing right slides the content left, which
-    /// reads as "I stepped right"), the vertical sign is direct (up = up).
+    /// Trigger + stick moves the splat. Stick X slides it sideways on the
+    /// camera's horizontal axis, stick Y moves it vertically. Both signs are
+    /// inverted on purpose (push right → content slides left, push up → content
+    /// drops), which reads as "I stepped right / I rose up".
     /// </summary>
     void PanSplat(Transform splat, Vector2 stick)
     {
@@ -389,7 +389,7 @@ public class VRLocomotion : MonoBehaviour
         }
 
         Vector3 horizontal = right * -stick.x;
-        Vector3 vertical   = Vector3.up * stick.y;
+        Vector3 vertical   = Vector3.up * -stick.y;
 
         splat.position += (horizontal + vertical) * (moveSpeed * Time.deltaTime);
     }
