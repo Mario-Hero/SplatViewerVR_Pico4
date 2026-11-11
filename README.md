@@ -118,7 +118,7 @@ Assets/Scripts/VR/
 └── SpxReader.cs            SPX 解码 / SPX decoder
 ```
 
-## 8. 来源与致谢 / Upstream & credits
+## 6. 来源与致谢 / Upstream & credits
 
 本项目**基于 [Enndee/Splatviewer_VR_Android](https://github.com/Enndee/Splatviewer_VR_Android) 改造**，安卓端的运行时加载、渲染管线和交互框架都来自该工程。
 This project is **derived from [Enndee/Splatviewer_VR_Android](https://github.com/Enndee/Splatviewer_VR_Android)** — the Android runtime loader, render pipeline and interaction framework all originate there.
@@ -136,7 +136,7 @@ This project is **derived from [Enndee/Splatviewer_VR_Android](https://github.co
   - 选项菜单增加 Render Scale / SH Order / Sort Every N Frames / Splat Budget，并启用固定注视点渲染与性能等级请求。
     Options menu gained Render Scale / SH Order / Sort Every N Frames / Splat Budget, plus fixed foveated rendering and performance-level requests.
 
-## 9. 许可 / License
+## 7. 许可 / License
 
 本工程代码以 MIT 协议发布。
 This project's own code is released under the MIT License.
